@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP Verification</title>
+</head>
+<body>
+    <h2>OTP Verification</h2>
+    <form id="otpForm">
+        <label for="otp">Enter OTP:</label>
+        <input type="text" id="otp" name="otp" required>
+        <button type="button" onclick="verifyOTP()">Verify OTP</button>
+        <button type="button" onclick="requestOTP()">Send OTP</button>
+    </form>
+
+    <script>
+        function verifyOTP() {
+            var otpValue = document.getElementById("otp").value;
+            // Send OTP to server for verification
+            fetch('verify_otp.php?otp=' + otpValue)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = 'dashboard.php';
+                    } else {
+                        alert('OTP verification failed. Please try again.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+        function requestOTP() {
+    // Get the phone number from the input field
+    var phoneNumber ='123number ';
+
+    // Send request to the server to generate and send OTP
+    fetch('send_otp.php?phoneNumber=' + phoneNumber)
+        // .then(response => response.json())
+        // .then(data => {
+        //     if (data.success) {
+        //         alert('OTP sent successfully. Check your phone.');
+        //     } else {
+        //         console.log(data);
+        //         alert('Failed to send OTP. Please try again.');
+        //     }
+        // })
+        // .catch(error => console.error('Error:', error));
+        .then(response => {
+            // Check if the response is valid JSON
+            if (!response.ok) {
+                throw new Error('Failed to send OTP. Server returned an error.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            if (data.success) {
+                alert('OTP sent successfully. Check your phone.');
+            } else {
+                alert('Failed to send OTP. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error.message);
+            // Handle the error appropriately, e.g., show an error message to the user
+            alert('Failed to send OTP. Please try again.');
+        });
+    }
+    </script>
+</body>
+</html>
