@@ -2,6 +2,9 @@
 
 This repository contains a simple OTP (One-Time Password) login system implemented in PHP. Users can register, receive an OTP on their mobile number, and then log in by verifying the OTP.
 
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Donate-Buy%20Me%20a%20Coffee-orange.svg)](https://www.buymeacoffee.com/hariskha)
+
 ## Files
 
 - **index.html:**
